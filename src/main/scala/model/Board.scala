@@ -82,9 +82,12 @@ abstract class Board {
               && checkValidPosition(x - (j + 1) * vx, y - (j + 1) * vy)
               && emptyCell(x - j * vx, y - j * vy)
               && emptyCell(x - (j + 1) * vx, y - (j + 1) * vy))}
-        !tmp.contains(false) && checkTrollShove(x - (i + 1) * vx, y - (i + 1) * vy)
+        (!tmp.contains(false)) && checkTrollShove(x - (i + 1) * vx, y - (i + 1) * vy)
       }
-    } yield (x - (i + 1) * vx,y - (i + 1)  * vy)
+    } yield {
+      println(x - (i + 1) * vx, y - (i + 1) * vy)
+      (x - (i + 1) * vx, y - (i + 1)  * vy)
+    }
   }
 
   def attackMoves(token: Token):Seq[(Int,Int)] = token match {
@@ -94,12 +97,8 @@ abstract class Board {
     } yield (0, 0)
     case troll: Troll => (for {
       i <- -1 to 1
-      j <- -1 to 1 if (!(i == 0 && j == 0)
-                        && unoptionToken(tokens.get((troll.x + i, troll.y + j))).isInstanceOf[Troll]
-                        && checkValidPosition(troll.x - 2 * i, troll.y - 2 * j)
-                        && emptyCell(troll.x - i, troll.y - j)
-                        && emptyCell(troll.x - 2 * i, troll.y - 2 * j)
-                        && checkTrollShove(troll.x - 2 * i, troll.y - 2 * j))
+      j <- -1 to 1 if ((i != 0 || j != 0)
+                        && unoptionToken(tokens.get((troll.x + i, troll.y + j))).isInstanceOf[Troll])
     } yield shoveRange(troll, i, j)).flatten
   }
 
