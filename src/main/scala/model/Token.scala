@@ -1,12 +1,13 @@
 package model
 
-abstract class Token{
-  val x:Int
-  val y:Int
+abstract class Token(val x:Int, val y:Int) {
+  def moveTo(nx:Int,ny:Int):Token
 
-  def moveTo(nx:Int,ny:Int):Token = new Token {
-      override val x: Int = nx
-      override val y: Int = ny
+  def normalMoves(board: Board):Seq[(Int,Int)]
+  def attackMoves(board: Board):Seq[(Int,Int)]
+
+  def allMoves(board: Board):Seq[(Int,Int)] = {
+    normalMoves(board) ++ attackMoves(board)
   }
 
   def moveN():Token = moveTo(x,y+1)

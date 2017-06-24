@@ -1,6 +1,22 @@
 package model
 
-abstract class Dwarf extends Token{
+class Dwarf (x:Int, y:Int) extends Token(x, y) {
+  def moveTo(nx:Int, ny:Int) = new Dwarf(nx,ny)
+
+  def normalMoves(board: Board):Seq[(Int,Int)] = {
+    for {
+      i <- 1 to 15
+      j <- 0 to 7 if (true)
+    } yield (0,0)
+  }
+
+  def attackMoves(board: Board):Seq[(Int,Int)] = {
+    for {
+      i <- 1 to 15
+      j <- 0 to 7 if true
+    } yield (0, 0)
+  }
+
   def move(f:()=>Token, n:Int):Dwarf = {
     if (n <= 0) {
       this
@@ -13,6 +29,7 @@ abstract class Dwarf extends Token{
       }
     }
   }
+
   def moveN(n : Int):Dwarf = move(super.moveN,n)
   def moveS(n : Int):Dwarf = move(super.moveS,n)
   def moveE(n : Int):Dwarf = move(super.moveE,n)

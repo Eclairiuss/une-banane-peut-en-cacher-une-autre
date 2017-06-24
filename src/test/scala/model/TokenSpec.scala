@@ -8,10 +8,7 @@ class TokenSpec extends FlatSpec{
     val tmp = for {
       i <- -1 to 15
       j <- -1 to 15
-    } yield new Dwarf {
-      override val x = i
-      override val y = j
-    }
+    } yield new Dwarf (i, j)
 
     val board:Board = new Board{
       override val tokens:Map[(Int,Int),Token] = Map[(Int, Int), Token]()
